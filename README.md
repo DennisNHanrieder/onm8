@@ -1,81 +1,87 @@
-Dennis Hanrieder - s2210238022    
-assignment on /form    
-ChatGbt Promt: Composer install is not recognised in visual studio terminal    
+# Subscriber Manager
 
-ChatGPT:
-Here's what's going on:
+## Overview
+**Pride Shark Subscriber Manager** is a full-stack **Laravel** application with **Vite** and **Tailwind CSS** integration, designed to manage a list of subscribers. 
 
-❌ Problem:
-You're getting this error:
+## Why this project exists
+The project was built to:
+- Showcase proficiency in **Laravel** for backend logic and routing.
+- Integrate **Vite** for fast asset compilation and **Tailwind CSS** for utility-first styling.
+- Implement a complete CRUD workflow for managing records.
 
-nginx
-Kopieren
-Bearbeiten
-composer : Die Benennung "composer" wurde nicht als Name eines Cmdlet ...
-Which means:
+## Features
+- **List Subscribers** — Displays all subscribers in a styled, responsive table.
+- **Add Subscriber** — Create new subscriber records with name and email.
+- **Edit Subscriber** — Update existing subscriber details.
+- **Delete Subscriber** — Remove subscribers from the list.
+- **Tailwind CSS Styling** — Uses utility-first design with a custom Pride-inspired gradient theme.
+- **Laravel Blade Templates** — Clean separation of markup and backend logic.
 
-The term "composer" is not recognized as the name of a cmdlet...
+> Key views and components:
+> - `resources/views/subscribers/index.blade.php` — Subscriber listing table.
+> - `resources/views/subscribers/create.blade.php` — Form to add a new subscriber.
+> - `resources/views/subscribers/edit.blade.php` — Form to update subscriber data.
+> - `resources/js/app.js` — Main JS entry with Vite setup.
 
-✅ Solution:
-You don't have Composer installed or it's not in your system PATH.
+## Quick start (clone & run)
+```bash
+# 1) Clone the repository
+git clone <https://github.com/DennisNHanrieder/onm8.git>
+cd onm8-main/onm8-main
 
-🛠 How to Fix It (Windows):
-Download and Install Composer
-
-Go to: https://getcomposer.org/Composer-Setup.exe
-
-Run the installer.
-
-Make sure it adds Composer to your system PATH (there’s a checkbox during installation).
-
-Verify Installation
-After installing, restart VS Code or your terminal and run:
-
-bash
-Kopieren
-Bearbeiten
-composer --version
-Once that works, go back to your Laravel project folder and run:
-
-bash
-Kopieren
-Bearbeiten
+# 2) Install PHP dependencies
 composer install
-Let me know when Composer is working or if you'd like help with Node/Vite setup next!
 
-Assignment 9    
+# 3) Install JavaScript dependencies
+npm install
 
-me: how can I prevent users from submitting duplicate email addresses in this Laravel form?    
-ChatGbt:    
-Great question! In Laravel, you can prevent duplicate email submissions by adding a unique validation rule in your controller’s store and update methods.
+# 4) Configure environment
+cp .env.example .env
+# Update database settings in .env to match your local or remote DB
 
-🟩 In the store() method:
-php
-Kopieren
-Bearbeiten
-$validated = $request->validate([
-    'email' => 'required|email|unique:subscribers,email',
-    // other fields...
-]);
-This ensures the email is unique in the subscribers table.
+# 5) Run migrations
+php artisan migrate
 
-🟩 In the update() method:
-When updating an existing subscriber, you need to ignore their own current email. Here’s how:
+# 6) Start development servers
+php artisan serve    # Laravel backend
+npm run dev          # Vite front-end build/watch
+```
 
-php
-Kopieren
-Bearbeiten
-$validated = $request->validate([
-    'email' => 'required|email|unique:subscribers,email,' . $subscriber->id,
-    // other fields...
-]);
-🎯 What it does:
-In store():
-unique:subscribers,email → email must be unique in the whole table.
+## Dependencies & setup
+- **Core tech stack:** PHP 8+, Laravel, Vite, Tailwind CSS, MySQL/PostgreSQL (or other supported DB).
+- **Backend:** Laravel for routing, controllers, models, and database migrations.
+- **Frontend:** Tailwind CSS for styling, Laravel Vite Plugin for bundling.
 
-In update():
-unique:subscribers,email,{$subscriber->id} → ignore this row’s email when checking.
+### PHP dependencies
+- Laravel Framework
+- Laravel Vite Plugin
 
-Bonus Tip: Laravel’s unique rule is super handy for any field you want to ensure is one-of-a-kind (like usernames, slugs, etc.).
+### JS dependencies
+- `tailwindcss` — Utility-first CSS framework.
+- `axios` — For HTTP requests if needed.
 
-Let me know if you’d like to see a full snippet in context!
+## Common scripts
+- **Install PHP deps:** `composer install`
+- **Install JS deps:** `npm install`
+- **Dev build/watch:** `npm run dev`
+- **Production build:** `npm run build`
+- **Run Laravel server:** `php artisan serve`
+
+## How to run tests
+If tests are configured in Laravel:
+```bash
+php artisan test
+```
+For front-end tests, configure a JS test runner such as Vitest or Jest.
+
+## How to contribute
+1. Fork the repository and create a new branch.
+2. Follow Laravel and Tailwind coding standards.
+3. Document any new routes, views, or components.
+4. Submit a pull request with a description of the changes.
+
+## What powers the core functionality?
+- **Laravel** — Backend framework for routing, data models, and controllers.
+- **Vite** — Modern asset bundler for fast front-end builds.
+- **Tailwind CSS** — Utility-first CSS framework for rapid UI development.
+- **Blade Templates** — Server-rendered HTML with Laravel syntax.
